@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#0a0a0f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="LM Hlídač">
-<title>Last Minute Hlídač</title>
+<meta name="apple-mobile-web-app-title" content="LM HlÃ­daÄ">
+<title>Last Minute HlÃ­daÄ</title>
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -603,10 +603,10 @@ body {
 <!-- HEADER -->
 <div class="header">
   <div class="logo">
-    <div class="logo-icon">✈️</div>
+    <div class="logo-icon">âï¸</div>
     <div>
-      <div class="logo-text">LM HLÍDAČ</div>
-      <div class="logo-sub">2+2 · HB/AI · max 14 000 Kč</div>
+      <div class="logo-text">LM HLÃDAÄ</div>
+      <div class="logo-sub">2+2 Â· HB/AI Â· max 14 000 KÄ</div>
     </div>
   </div>
   <div class="header-right">
@@ -614,7 +614,7 @@ body {
       <div class="live-dot"></div>
       <span id="live-time">--:--</span>
     </div>
-    <button class="notif-btn" id="notif-btn" onclick="toggleNotif()" title="Notifikace">🔔</button>
+    <button class="notif-btn" id="notif-btn" onclick="toggleNotif()" title="Notifikace">ð</button>
   </div>
 </div>
 
@@ -622,15 +622,15 @@ body {
 <div class="stats-bar">
   <div class="stat-item">
     <div class="stat-val" id="stat-count">54</div>
-    <div class="stat-label">Nabídek</div>
+    <div class="stat-label">NabÃ­dek</div>
   </div>
   <div class="stat-item">
     <div class="stat-val" id="stat-min">3 709</div>
-    <div class="stat-label">Min. Kč/os.</div>
+    <div class="stat-label">Min. KÄ/os.</div>
   </div>
   <div class="stat-item">
     <div class="stat-val">7/13</div>
-    <div class="stat-label">Zdrojů</div>
+    <div class="stat-label">ZdrojÅ¯</div>
   </div>
 </div>
 
@@ -639,10 +639,10 @@ body {
   <!-- SCAN -->
   <div class="scan-section">
     <button class="scan-btn" id="scan-btn" onclick="startScan()">
-      <span id="scan-icon">🔍</span>
+      <span id="scan-icon">ð</span>
       <span id="scan-text">SPUSTIT SKEN</span>
     </button>
-    <div class="last-scan" id="last-scan">Poslední sken: 4.6.2026 · 08:42</div>
+    <div class="last-scan" id="last-scan">PoslednÃ­ sken: 4.6.2026 Â· 08:42</div>
   </div>
 
   <!-- SOURCES -->
@@ -653,9 +653,9 @@ body {
 
   <!-- SCHEDULE -->
   <div class="schedule-section">
-    <div class="section-title">Automatický sken</div>
+    <div class="section-title">AutomatickÃ½ sken</div>
     <div class="times-grid" id="times-grid"></div>
-    <div class="next-scan" id="next-scan">Příští sken: --:--</div>
+    <div class="next-scan" id="next-scan">PÅÃ­Å¡tÃ­ sken: --:--</div>
   </div>
 
   <!-- FILTERS -->
@@ -666,28 +666,19 @@ body {
 
   <!-- CLAUDE LINK -->
   <div class="claude-section">
-    <div class="claude-title">🤖 Chceš poradit?</div>
-    <div class="claude-desc">Otevři Claude AI — já projdu všechny cestovky a pomůžu ti vybrat nejlepší zájezd pro vaši rodinu.</div>
-    <a class="claude-btn" href="https://claude.ai/new?q=skenuj+pros%C3%ADm" target="_blank">
-      Otevřít Claude AI →
-    </a>
-  </div>
-
-</div>
-
-<!-- BOTTOM NAV -->
-<div class="bottom-nav">
-  <div class="nav-item active" onclick="showTab('deals')">
-    <div class="nav-icon">🏷️</div>
-    <span>Nabídky</span>
+    <div class="claude-title">ð¤ ChceÅ¡ poradit?</div>
+    <div class="claude-desc">OtevÅi Claude AI â jÃ¡ projdu vÅ¡echny cestovky a pomÅ¯Å¾u ti vybrat nejlepÅ¡Ã­ zÃ¡jezd pro vaÅ¡i rodinu.</div>
+    <a class="claude-btn" href="https://claude.ai/chat/b1f3ad77-b872-4440-ab5a-8633c3002fd4'deals')">
+    <div class="nav-icon">ð·ï¸</div>
+    <span>NabÃ­dky</span>
   </div>
   <div class="nav-item" onclick="showTab('scan')">
-    <div class="nav-icon">🔍</div>
+    <div class="nav-icon">ð</div>
     <span>Sken</span>
   </div>
   <div class="nav-item" onclick="showTab('settings')">
-    <div class="nav-icon">⚙️</div>
-    <span>Nastavení</span>
+    <div class="nav-icon">âï¸</div>
+    <span>NastavenÃ­</span>
   </div>
 </div>
 
@@ -699,63 +690,63 @@ const TIMES = ['07:00','10:30','13:00','16:30','20:00'];
 const BUDGET = 14000;
 
 const FLAGS = {
-  'bulharsko':'🇧🇬','řecko':'🇬🇷','turecko':'🇹🇷','egypt':'🇪🇬','španělsko':'🇪🇸',
-  'albánie':'🇦🇱','černá hora':'🇲🇪','chorvatsko':'🇭🇷','kypr':'🇨🇾','malta':'🇲🇹',
-  'itálie':'🇮🇹','tunisko':'🇹🇳','kapverd':'🇨🇻','parga':'🇬🇷','rhodos':'🇬🇷',
-  'kos':'🇬🇷','korfu':'🇬🇷','kréta':'🇬🇷','zakynthos':'🇬🇷','kefalonie':'🇬🇷',
-  'samos':'🇬🇷','varna':'🇧🇬','burgas':'🇧🇬','bodrum':'🇹🇷','alanya':'🇹🇷',
-  'hurghada':'🇪🇬','mallorca':'🇪🇸','djerba':'🇹🇳','primorsko':'🇧🇬'
+  'bulharsko':'ð§ð¬','Åecko':'ð¬ð·','turecko':'ð¹ð·','egypt':'ðªð¬','Å¡panÄlsko':'ðªð¸',
+  'albÃ¡nie':'ð¦ð±','ÄernÃ¡ hora':'ð²ðª','chorvatsko':'ð­ð·','kypr':'ð¨ð¾','malta':'ð²ð¹',
+  'itÃ¡lie':'ð®ð¹','tunisko':'ð¹ð³','kapverd':'ð¨ð»','parga':'ð¬ð·','rhodos':'ð¬ð·',
+  'kos':'ð¬ð·','korfu':'ð¬ð·','krÃ©ta':'ð¬ð·','zakynthos':'ð¬ð·','kefalonie':'ð¬ð·',
+  'samos':'ð¬ð·','varna':'ð§ð¬','burgas':'ð§ð¬','bodrum':'ð¹ð·','alanya':'ð¹ð·',
+  'hurghada':'ðªð¬','mallorca':'ðªð¸','djerba':'ð¹ð³','primorsko':'ð§ð¬'
 };
 
 function gf(s) {
   const n = (s||'').toLowerCase();
   for (const [k,v] of Object.entries(FLAGS)) if (n.includes(k)) return v;
-  return '🏖️';
+  return 'ðï¸';
 }
 
-// DATA — poslední sken 4.6.2026
+// DATA â poslednÃ­ sken 4.6.2026
 const DEALS_DATA = [
-  {dest:'Albánie – Vlora',hotel:'Hotel Oricon Coast',price:3709,nights:3,board:'AI',dep:'vlastní',date:'08.06.',score:5.3,src:'Čedok',url:'https://www.cedok.cz/last-minute/'},
-  {dest:'Bulharsko – Slunečné Pobřeží',hotel:'Ivana Palace ★★★★',price:3828,nights:7,board:'Snídaně',dep:'OSR',date:'02.06.',score:4.1,src:'Cestujlevne',url:'https://www.cestujlevne.com/zajezdy'},
-  {dest:'Chorvatsko',hotel:'polopenze — seznam',price:3772,nights:7,board:'HB',src:'Zájezdy.cz',destOnly:true,url:'https://last-minute.zajezdy.cz/chorvatsko-polopenze/'},
-  {dest:'Bulharsko – Slunečné Pobřeží',hotel:'Smolian ★★★',price:4089,nights:7,board:'Snídaně',dep:'OSR',date:'09.06.',score:4.3,src:'Cestujlevne',url:'https://www.cestujlevne.com/zajezdy'},
-  {dest:'Bulharsko',hotel:'polopenze — seznam',price:4590,nights:7,board:'HB',src:'Zájezdy.cz',chDn:'↓',destOnly:true,url:'https://last-minute.zajezdy.cz/bulharsko-polopenze/'},
-  {dest:'Bulharsko – Burgas',hotel:'konkrétní hotel',price:4790,nights:7,board:'?',dep:'BRN',date:'07.06.',src:'Exim',chDn:'↓',url:'https://www.eximtours.cz/last-minute/'},
-  {dest:'Turecko – Alanya',hotel:'Eftalia Downtown ★★★',price:5088,nights:7,board:'Snídaně',dep:'PRG',date:'02.06.',score:4.5,src:'Cestujlevne',url:'https://www.cestujlevne.com/zajezdy'},
-  {dest:'Bulharsko – Burgas',hotel:'konkrétní hotel',price:5690,nights:7,board:'?',dep:'PRG',date:'07.06.',src:'Exim',url:'https://www.eximtours.cz/last-minute/'},
-  {dest:'Bulharsko – Zlaté Písky',hotel:'Ljuljak',price:5390,nights:7,board:'HB',dep:'BRN',date:'05.06.',src:'Cestujlevne',url:'https://www.cestujlevne.com/zajezdy'},
-  {dest:'Řecko – Parga',hotel:'konkrétní hotel',price:5990,nights:7,board:'?',dep:'PRG',date:'06.06.',src:'Exim',chDn:'nové!',url:'https://www.eximtours.cz/last-minute/'},
-  {dest:'Bulharsko – Varna',hotel:'Blue Style — výběr',price:5990,nights:7,board:'?',dep:'PRG/BRQ/OSR',date:'08.06.',src:'Blue Style',chDn:'↓',destOnly:true,url:'https://www.blue-style.cz/last-minute/'},
-  {dest:'Turecko – Bodrum',hotel:'Blue Style — výběr',price:5990,nights:7,board:'?',dep:'PRG/BRQ/OSR',date:'05.06.',src:'Blue Style',chDn:'↓',destOnly:true,url:'https://www.blue-style.cz/last-minute/'},
-  {dest:'Bulharsko',hotel:'HB — seznam',price:6150,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',chDn:'↓',destOnly:true,url:'https://www.fischer.cz/bulharsko?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
-  {dest:'Španělsko',hotel:'HB — seznam',price:6890,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',destOnly:true,url:'https://www.fischer.cz/spanelsko?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
-  {dest:'Turecko',hotel:'HB — seznam',price:6693,nights:7,board:'HB',src:'Zájezdy.cz',destOnly:true,url:'https://last-minute.zajezdy.cz/turecko-polopenze/'},
-  {dest:'Řecko – Rhodos',hotel:'konkrétní hotel',price:6490,nights:7,board:'?',dep:'PRG',date:'06.06.',src:'Exim',url:'https://www.eximtours.cz/last-minute/'},
-  {dest:'Řecko – Rhodos',hotel:'konkrétní hotel',price:6990,nights:7,board:'?',dep:'BRN',date:'07.06.',src:'Exim',url:'https://www.eximtours.cz/last-minute/'},
-  {dest:'Řecko',hotel:'HB — seznam',price:7790,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',destOnly:true,url:'https://www.fischer.cz/recko?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
-  {dest:'Bulharsko – Zlaté Písky',hotel:'Berlin Golden Beach',price:7990,nights:7,board:'AI',dep:'PRG/BRQ/OSR',date:'07.06.',score:8.5,reviews:772,src:'Alexandria',url:'https://www.alexandria.cz/last-minute/'},
-  {dest:'Španělsko – Mallorca',hotel:'konkrétní hotel',price:7790,nights:7,board:'?',dep:'BRN',date:'06.06.',src:'Exim',url:'https://www.eximtours.cz/last-minute/'},
-  {dest:'Řecko',hotel:'HB — seznam',price:7290,nights:7,board:'HB',src:'Zájezdy.cz',destOnly:true,url:'https://last-minute.zajezdy.cz/recko-polopenze/'},
-  {dest:'Řecko – Kréta',hotel:'Blue Style — výběr',price:8190,nights:7,board:'?',dep:'PRG/BRQ/OSR',date:'07.06.',src:'Blue Style',destOnly:true,url:'https://www.blue-style.cz/last-minute/'},
-  {dest:'Řecko – Kos/Tigaki',hotel:'Tigaki Beach ★★★★★',price:8990,nights:7,board:'AI',dep:'PRG/BRQ/OSR',date:'05.06.',score:9.3,reviews:187,src:'Alexandria',chDn:'↓',url:'https://www.alexandria.cz/last-minute/'},
-  {dest:'Řecko – Kos',hotel:'Blue Style — výběr',price:8590,nights:7,board:'?',dep:'PRG/BRQ/OSR',date:'07.06.',src:'Blue Style',destOnly:true,url:'https://www.blue-style.cz/last-minute/'},
-  {dest:'Albánie – Tirana',hotel:'Hotel Royal G Deluxe',price:9490,nights:8,board:'AI',dep:'PRD',date:'04.06.',score:5.3,src:'Čedok',url:'https://www.cedok.cz/last-minute/'},
-  {dest:'Egypt',hotel:'HB — seznam',price:9590,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',chDn:'↓',destOnly:true,url:'https://www.fischer.cz/egypt?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
-  {dest:'Bulharsko – Primorsko',hotel:'Belvedere Alexandria Club',price:9990,nights:7,board:'AI',dep:'PRG/BRQ/OSR',date:'07.06.',score:9.4,reviews:1776,src:'Alexandria',chDn:'↓',url:'https://www.alexandria.cz/last-minute/'},
-  {dest:'Řecko – Zakynthos',hotel:'Strofades Beach',price:9990,nights:7,board:'AI',dep:'PRG/BRQ/OSR',date:'05.06.',score:8.5,reviews:1004,kids:'2 děti ZDARMA',src:'Alexandria',url:'https://www.alexandria.cz/last-minute/'},
-  {dest:'Turecko',hotel:'HB — seznam',price:9105,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',destOnly:true,url:'https://www.fischer.cz/turecko?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
-  {dest:'Albánie – Durrës',hotel:'Royal G Max Alexandria Club',price:9990,nights:7,board:'AI',dep:'PRG',date:'05.06.',score:8.9,reviews:278,src:'Alexandria',url:'https://www.alexandria.cz/last-minute/'},
-  {dest:'Černá Hora – Čanj',hotel:'Pearl Beach Resort',price:10990,nights:7,board:'AI',dep:'PRG/BRN',date:'07.06.',score:8.6,reviews:668,src:'Alexandria',url:'https://www.alexandria.cz/last-minute/'},
-  {dest:'Kypr',hotel:'HB — seznam',price:11555,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',destOnly:true,url:'https://www.fischer.cz/kypr?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
-  {dest:'Bulharsko – Slunečné Pobřeží',hotel:'Helena Park Alexandria Club',price:11990,nights:7,board:'Ultra AI',dep:'PRG/BRQ/OSR',date:'13.06.',score:9.4,reviews:517,src:'Alexandria',url:'https://www.alexandria.cz/last-minute/'},
-  {dest:'Malta',hotel:'HB — seznam',price:12740,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',destOnly:true,url:'https://www.fischer.cz/malta?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
-  {dest:'Černá Hora',hotel:'HB — seznam',price:13840,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',destOnly:true,url:'https://www.fischer.cz/cerna-hora?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
+  {dest:'AlbÃ¡nie â Vlora',hotel:'Hotel Oricon Coast',price:3709,nights:3,board:'AI',dep:'vlastnÃ­',date:'08.06.',score:5.3,src:'Äedok',url:'https://www.cedok.cz/last-minute/'},
+  {dest:'Bulharsko â SluneÄnÃ© PobÅeÅ¾Ã­',hotel:'Ivana Palace ââââ',price:3828,nights:7,board:'SnÃ­danÄ',dep:'OSR',date:'02.06.',score:4.1,src:'Cestujlevne',url:'https://www.cestujlevne.com/zajezdy'},
+  {dest:'Chorvatsko',hotel:'polopenze â seznam',price:3772,nights:7,board:'HB',src:'ZÃ¡jezdy.cz',destOnly:true,url:'https://last-minute.zajezdy.cz/chorvatsko-polopenze/'},
+  {dest:'Bulharsko â SluneÄnÃ© PobÅeÅ¾Ã­',hotel:'Smolian âââ',price:4089,nights:7,board:'SnÃ­danÄ',dep:'OSR',date:'09.06.',score:4.3,src:'Cestujlevne',url:'https://www.cestujlevne.com/zajezdy'},
+  {dest:'Bulharsko',hotel:'polopenze â seznam',price:4590,nights:7,board:'HB',src:'ZÃ¡jezdy.cz',chDn:'â',destOnly:true,url:'https://last-minute.zajezdy.cz/bulharsko-polopenze/'},
+  {dest:'Bulharsko â Burgas',hotel:'konkrÃ©tnÃ­ hotel',price:4790,nights:7,board:'?',dep:'BRN',date:'07.06.',src:'Exim',chDn:'â',url:'https://www.eximtours.cz/last-minute/'},
+  {dest:'Turecko â Alanya',hotel:'Eftalia Downtown âââ',price:5088,nights:7,board:'SnÃ­danÄ',dep:'PRG',date:'02.06.',score:4.5,src:'Cestujlevne',url:'https://www.cestujlevne.com/zajezdy'},
+  {dest:'Bulharsko â Burgas',hotel:'konkrÃ©tnÃ­ hotel',price:5690,nights:7,board:'?',dep:'PRG',date:'07.06.',src:'Exim',url:'https://www.eximtours.cz/last-minute/'},
+  {dest:'Bulharsko â ZlatÃ© PÃ­sky',hotel:'Ljuljak',price:5390,nights:7,board:'HB',dep:'BRN',date:'05.06.',src:'Cestujlevne',url:'https://www.cestujlevne.com/zajezdy'},
+  {dest:'Åecko â Parga',hotel:'konkrÃ©tnÃ­ hotel',price:5990,nights:7,board:'?',dep:'PRG',date:'06.06.',src:'Exim',chDn:'novÃ©!',url:'https://www.eximtours.cz/last-minute/'},
+  {dest:'Bulharsko â Varna',hotel:'Blue Style â vÃ½bÄr',price:5990,nights:7,board:'?',dep:'PRG/BRQ/OSR',date:'08.06.',src:'Blue Style',chDn:'â',destOnly:true,url:'https://www.blue-style.cz/last-minute/'},
+  {dest:'Turecko â Bodrum',hotel:'Blue Style â vÃ½bÄr',price:5990,nights:7,board:'?',dep:'PRG/BRQ/OSR',date:'05.06.',src:'Blue Style',chDn:'â',destOnly:true,url:'https://www.blue-style.cz/last-minute/'},
+  {dest:'Bulharsko',hotel:'HB â seznam',price:6150,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',chDn:'â',destOnly:true,url:'https://www.fischer.cz/bulharsko?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
+  {dest:'Å panÄlsko',hotel:'HB â seznam',price:6890,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',destOnly:true,url:'https://www.fischer.cz/spanelsko?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
+  {dest:'Turecko',hotel:'HB â seznam',price:6693,nights:7,board:'HB',src:'ZÃ¡jezdy.cz',destOnly:true,url:'https://last-minute.zajezdy.cz/turecko-polopenze/'},
+  {dest:'Åecko â Rhodos',hotel:'konkrÃ©tnÃ­ hotel',price:6490,nights:7,board:'?',dep:'PRG',date:'06.06.',src:'Exim',url:'https://www.eximtours.cz/last-minute/'},
+  {dest:'Åecko â Rhodos',hotel:'konkrÃ©tnÃ­ hotel',price:6990,nights:7,board:'?',dep:'BRN',date:'07.06.',src:'Exim',url:'https://www.eximtours.cz/last-minute/'},
+  {dest:'Åecko',hotel:'HB â seznam',price:7790,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',destOnly:true,url:'https://www.fischer.cz/recko?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
+  {dest:'Bulharsko â ZlatÃ© PÃ­sky',hotel:'Berlin Golden Beach',price:7990,nights:7,board:'AI',dep:'PRG/BRQ/OSR',date:'07.06.',score:8.5,reviews:772,src:'Alexandria',url:'https://www.alexandria.cz/last-minute/'},
+  {dest:'Å panÄlsko â Mallorca',hotel:'konkrÃ©tnÃ­ hotel',price:7790,nights:7,board:'?',dep:'BRN',date:'06.06.',src:'Exim',url:'https://www.eximtours.cz/last-minute/'},
+  {dest:'Åecko',hotel:'HB â seznam',price:7290,nights:7,board:'HB',src:'ZÃ¡jezdy.cz',destOnly:true,url:'https://last-minute.zajezdy.cz/recko-polopenze/'},
+  {dest:'Åecko â KrÃ©ta',hotel:'Blue Style â vÃ½bÄr',price:8190,nights:7,board:'?',dep:'PRG/BRQ/OSR',date:'07.06.',src:'Blue Style',destOnly:true,url:'https://www.blue-style.cz/last-minute/'},
+  {dest:'Åecko â Kos/Tigaki',hotel:'Tigaki Beach âââââ',price:8990,nights:7,board:'AI',dep:'PRG/BRQ/OSR',date:'05.06.',score:9.3,reviews:187,src:'Alexandria',chDn:'â',url:'https://www.alexandria.cz/last-minute/'},
+  {dest:'Åecko â Kos',hotel:'Blue Style â vÃ½bÄr',price:8590,nights:7,board:'?',dep:'PRG/BRQ/OSR',date:'07.06.',src:'Blue Style',destOnly:true,url:'https://www.blue-style.cz/last-minute/'},
+  {dest:'AlbÃ¡nie â Tirana',hotel:'Hotel Royal G Deluxe',price:9490,nights:8,board:'AI',dep:'PRD',date:'04.06.',score:5.3,src:'Äedok',url:'https://www.cedok.cz/last-minute/'},
+  {dest:'Egypt',hotel:'HB â seznam',price:9590,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',chDn:'â',destOnly:true,url:'https://www.fischer.cz/egypt?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
+  {dest:'Bulharsko â Primorsko',hotel:'Belvedere Alexandria Club',price:9990,nights:7,board:'AI',dep:'PRG/BRQ/OSR',date:'07.06.',score:9.4,reviews:1776,src:'Alexandria',chDn:'â',url:'https://www.alexandria.cz/last-minute/'},
+  {dest:'Åecko â Zakynthos',hotel:'Strofades Beach',price:9990,nights:7,board:'AI',dep:'PRG/BRQ/OSR',date:'05.06.',score:8.5,reviews:1004,kids:'2 dÄti ZDARMA',src:'Alexandria',url:'https://www.alexandria.cz/last-minute/'},
+  {dest:'Turecko',hotel:'HB â seznam',price:9105,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',destOnly:true,url:'https://www.fischer.cz/turecko?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
+  {dest:'AlbÃ¡nie â DurrÃ«s',hotel:'Royal G Max Alexandria Club',price:9990,nights:7,board:'AI',dep:'PRG',date:'05.06.',score:8.9,reviews:278,src:'Alexandria',url:'https://www.alexandria.cz/last-minute/'},
+  {dest:'ÄernÃ¡ Hora â Äanj',hotel:'Pearl Beach Resort',price:10990,nights:7,board:'AI',dep:'PRG/BRN',date:'07.06.',score:8.6,reviews:668,src:'Alexandria',url:'https://www.alexandria.cz/last-minute/'},
+  {dest:'Kypr',hotel:'HB â seznam',price:11555,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',destOnly:true,url:'https://www.fischer.cz/kypr?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
+  {dest:'Bulharsko â SluneÄnÃ© PobÅeÅ¾Ã­',hotel:'Helena Park Alexandria Club',price:11990,nights:7,board:'Ultra AI',dep:'PRG/BRQ/OSR',date:'13.06.',score:9.4,reviews:517,src:'Alexandria',url:'https://www.alexandria.cz/last-minute/'},
+  {dest:'Malta',hotel:'HB â seznam',price:12740,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',destOnly:true,url:'https://www.fischer.cz/malta?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
+  {dest:'ÄernÃ¡ Hora',hotel:'HB â seznam',price:13840,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',destOnly:true,url:'https://www.fischer.cz/cerna-hora?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
 ];
 
 const SOURCES = [
   {name:'Fischer',ok:true,count:11},{name:'Exim',ok:true,count:13},
-  {name:'Blue Style',ok:true,count:8},{name:'Čedok',ok:true,count:2},
-  {name:'Alexandria',ok:true,count:9},{name:'Zájezdy',ok:true,count:7},
+  {name:'Blue Style',ok:true,count:8},{name:'Äedok',ok:true,count:2},
+  {name:'Alexandria',ok:true,count:9},{name:'ZÃ¡jezdy',ok:true,count:7},
   {name:'Cestujlevne',ok:true,count:4},{name:'Invia',ok:false,count:0},
 ];
 
@@ -776,7 +767,7 @@ updateClock();
 function renderSources() {
   document.getElementById('sources-grid').innerHTML = SOURCES.map(s => `
     <div class="source-chip ${s.ok ? 'ok' : ''}">
-      ${s.ok ? `<span class="source-count">${s.count}</span>` : '<span class="source-count" style="color:var(--text3)">—</span>'}
+      ${s.ok ? `<span class="source-count">${s.count}</span>` : '<span class="source-count" style="color:var(--text3)">â</span>'}
       <span>${s.name}</span>
     </div>`).join('');
 }
@@ -784,14 +775,14 @@ function renderSources() {
 // Filters
 function renderFilters() {
   const filters = [
-    {id:'all', label:'Vše'},
-    {id:'bg', label:'🇧🇬 Bulharsko'},
-    {id:'gr', label:'🇬🇷 Řecko'},
-    {id:'tr', label:'🇹🇷 Turecko'},
-    {id:'es', label:'🇪🇸 Španělsko'},
-    {id:'eg', label:'🇪🇬 Egypt'},
-    {id:'al', label:'🇦🇱 Albánie'},
-    {id:'hr', label:'🇭🇷 Chorvatsko'},
+    {id:'all', label:'VÅ¡e'},
+    {id:'bg', label:'ð§ð¬ Bulharsko'},
+    {id:'gr', label:'ð¬ð· Åecko'},
+    {id:'tr', label:'ð¹ð· Turecko'},
+    {id:'es', label:'ðªð¸ Å panÄlsko'},
+    {id:'eg', label:'ðªð¬ Egypt'},
+    {id:'al', label:'ð¦ð± AlbÃ¡nie'},
+    {id:'hr', label:'ð­ð· Chorvatsko'},
   ];
   document.getElementById('filters').innerHTML = filters.map(f =>
     `<button class="filter-pill ${activeFilter === f.id ? 'active' : ''}" onclick="setFilter('${f.id}')">${f.label}</button>`
@@ -799,8 +790,8 @@ function renderFilters() {
 }
 
 const FILTER_MAP = {
-  'bg':'bulharsko','gr':'řecko','tr':'turecko','es':'španělsko',
-  'eg':'egypt','al':'albánie','hr':'chorvatsko'
+  'bg':'bulharsko','gr':'Åecko','tr':'turecko','es':'Å¡panÄlsko',
+  'eg':'egypt','al':'albÃ¡nie','hr':'chorvatsko'
 };
 
 function setFilter(f) {
@@ -840,7 +831,7 @@ function updateNextScan() {
   if (next) {
     if (scanTimer) clearTimeout(scanTimer);
     scanTimer = setTimeout(openClaude, next - now);
-    document.getElementById('next-scan').textContent = 'Příští: ' + next.toLocaleTimeString('cs-CZ',{hour:'2-digit',minute:'2-digit'});
+    document.getElementById('next-scan').textContent = 'PÅÃ­Å¡tÃ­: ' + next.toLocaleTimeString('cs-CZ',{hour:'2-digit',minute:'2-digit'});
   }
 }
 
@@ -859,7 +850,7 @@ function renderDeals() {
 
   const el = document.getElementById('deals-list');
   if (!data.length) {
-    el.innerHTML = '<div class="empty"><div class="empty-icon">🏖️</div><p>Žádné nabídky pro tento filtr.</p></div>';
+    el.innerHTML = '<div class="empty"><div class="empty-icon">ðï¸</div><p>Å½Ã¡dnÃ© nabÃ­dky pro tento filtr.</p></div>';
     return;
   }
 
@@ -877,17 +868,17 @@ function renderDeals() {
             ${d.dest}
             ${d.chDn ? `<span class="chdn">${d.chDn}</span>` : ''}
             ${d.chUp ? `<span class="chup">${d.chUp}</span>` : ''}
-            ${d.kids ? `<span class="kbadge">👶 ${d.kids}</span>` : ''}
+            ${d.kids ? `<span class="kbadge">ð¶ ${d.kids}</span>` : ''}
           </div>
           <div class="deal-hotel">${d.hotel}</div>
           <div class="deal-meta">
-            ${d.nights ? d.nights+' nocí · ' : ''}${d.board||'?'}${d.dep ? ' · '+d.dep : ''}${d.date ? ' · '+d.date : ''}
+            ${d.nights ? d.nights+' nocÃ­ Â· ' : ''}${d.board||'?'}${d.dep ? ' Â· '+d.dep : ''}${d.date ? ' Â· '+d.date : ''}
           </div>
         </div>
         <div class="deal-price">
           <div class="deal-price-main">${d.price.toLocaleString('cs-CZ')}</div>
-          <div class="deal-price-per">Kč / os.</div>
-          <div class="deal-price-total">~${tot} Kč</div>
+          <div class="deal-price-per">KÄ / os.</div>
+          <div class="deal-price-total">~${tot} KÄ</div>
         </div>
       </div>
       <div class="deal-bar">
@@ -895,13 +886,13 @@ function renderDeals() {
       </div>
       <div class="deal-bottom">
         <div class="deal-tags">
-          ${d.score ? `<span class="tag ${d.score>8?'green':d.score>6?'blue':''}">⭐ ${d.score > 6 ? d.score.toFixed(1) : d.score.toFixed(1)+'/6'}</span>` : ''}
+          ${d.score ? `<span class="tag ${d.score>8?'green':d.score>6?'blue':''}">â­ ${d.score > 6 ? d.score.toFixed(1) : d.score.toFixed(1)+'/6'}</span>` : ''}
           ${d.reviews ? `<span class="tag">${d.reviews} rec.</span>` : ''}
           <span class="tag">${d.src}</span>
-          ${hot ? '<span class="tag green">🔥 Výhodné</span>' : ''}
+          ${hot ? '<span class="tag green">ð¥ VÃ½hodnÃ©</span>' : ''}
         </div>
         <a class="deal-btn" href="${d.url}" target="_blank" rel="noopener">
-          ${d.destOnly ? 'Seznam' : 'Rezervovat'} →
+          ${d.destOnly ? 'Seznam' : 'Rezervovat'} â
         </a>
       </div>
     </div>`;
@@ -916,24 +907,24 @@ function startScan() {
 
   btn.classList.add('scanning');
   icon.innerHTML = '<div class="spinner"></div>';
-  text.textContent = 'OTEVÍRÁM CLAUDE...';
+  text.textContent = 'OTEVÃRÃM CLAUDE...';
 
   setTimeout(() => {
     openClaude();
     setTimeout(() => {
       btn.classList.remove('scanning');
-      icon.textContent = '🔍';
+      icon.textContent = 'ð';
       text.textContent = 'SPUSTIT SKEN';
       document.getElementById('last-scan').textContent =
-        'Poslední sken: ' + new Date().toLocaleDateString('cs-CZ') + ' · ' +
+        'PoslednÃ­ sken: ' + new Date().toLocaleDateString('cs-CZ') + ' Â· ' +
         new Date().toLocaleTimeString('cs-CZ',{hour:'2-digit',minute:'2-digit'});
-      showToast('Sken spuštěn v Claude AI!');
+      showToast('Sken spuÅ¡tÄn v Claude AI!');
     }, 1500);
   }, 500);
 }
 
 function openClaude() {
-  window.open('https://claude.ai/new?q=skenuj+pros%C3%ADm', '_blank');
+  window.open('https://claude.ai/chat/b1f3ad77-b872-4440-ab5a-8633c3002fd4', '_blank');
 }
 
 // Notifikace
@@ -943,15 +934,15 @@ function toggleNotif() {
       if (p === 'granted') {
         notifOn = true;
         document.getElementById('notif-btn').classList.add('active');
-        document.getElementById('notif-btn').textContent = '🔕';
+        document.getElementById('notif-btn').textContent = 'ð';
         showToast('Notifikace zapnuty!');
-        new Notification('Last Minute Hlídač', { body: 'Budu tě upozorňovat na nové nabídky!', icon: '/icon-192.png' });
+        new Notification('Last Minute HlÃ­daÄ', { body: 'Budu tÄ upozorÅovat na novÃ© nabÃ­dky!', icon: '/icon-192.png' });
       }
     });
   } else {
     notifOn = false;
     document.getElementById('notif-btn').classList.remove('active');
-    document.getElementById('notif-btn').textContent = '🔔';
+    document.getElementById('notif-btn').textContent = 'ð';
     showToast('Notifikace vypnuty');
   }
 }
@@ -982,7 +973,7 @@ let installPrompt = null;
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
   installPrompt = e;
-  showToast('💡 Přidej si appku na plochu!');
+  showToast('ð¡ PÅidej si appku na plochu!');
 });
 
 // Service Worker
