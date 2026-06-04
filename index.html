@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="LM Hlídač">
+<title>Last Minute Hlídač</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --bg2: #12121a;
+  --bg3: #1a1a26;
+  --accent: #00d4aa;
+  --accent2: #ff6b35;
+  --accent3: #7c3aed;
+  --text: #f0f0f8;
+  --text2: #8888aa;
+  --text3: #4a4a6a;
+  --border: rgba(255,255,255,0.06);
+  --green: #22c55e;
+  --red: #ef4444;
+  --yellow: #f59e0b;
+  --safe: env(safe-area-inset-top);
+  --safeb: env(safe-area-inset-bottom);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* HEADER */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: calc(var(--safe) + 16px) 20px 16px;
+  background: rgba(10,10,15,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--accent);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.logo-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.logo-sub {
+  font-size: 10px;
+  color: var(--text2);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.live-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--accent);
+  font-family: 'Space Mono', monospace;
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: blink 2s infinite;
+}
+
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+.notif-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  color: var(--text2);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .2s;
+}
+.notif-btn.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+
+/* STATS BAR */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.stat-item {
+  background: var(--bg);
+  padding: 14px 16px;
+  text-align: center;
+}
+
+.stat-val {
+  font-family: 'Space Mono', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 10px;
+  color: var(--text2);
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+/* SCAN BUTTON */
+.scan-section {
+  padding: 20px;
+}
+
+.scan-btn {
+  width: 100%;
+  padding: 18px;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: 16px;
+  font-family: 'Space Mono', monospace;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  letter-spacing: .5px;
+  transition: all .2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.scan-btn:active { transform: scale(0.98); }
+
+.scan-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,.1) 0%, transparent 60%);
+}
+
+.scan-btn.scanning {
+  background: var(--bg3);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(10,10,15,.3);
+  border-top-color: var(--bg);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.last-scan {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 10px;
+  font-family: 'Space Mono', monospace;
+}
+
+/* SOURCES GRID */
+.sources-section {
+  padding: 0 20px 20px;
+}
+
+.section-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.sources-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.source-chip {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 6px;
+  text-align: center;
+  font-size: 10px;
+  color: var(--text2);
+  position: relative;
+}
+
+.source-chip.ok { border-color: rgba(0,212,170,.2); color: var(--text); }
+.source-chip.ok::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.source-count {
+  display: block;
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 2px;
+}
+
+/* FILTERS */
+.filters-section {
+  padding: 0 20px 16px;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.filters-section::-webkit-scrollbar { display: none; }
+
+.filter-pill {
+  flex-shrink: 0;
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  color: var(--text2);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all .15s;
+  white-space: nowrap;
+}
+.filter-pill.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+  font-weight: 600;
+}
+
+/* DEALS */
+.deals-section {
+  padding: 0 20px;
+}
+
+.deal-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+  transition: transform .15s;
+  animation: fadeIn .3s ease both;
+}
+
+@keyframes fadeIn { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: none; } }
+
+.deal-card:active { transform: scale(0.99); }
+
+.deal-card.hot { border-color: rgba(0,212,170,.3); }
+.deal-card.hot::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent3));
+}
+
+.deal-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.deal-flag {
+  font-size: 28px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.deal-info { flex: 1; min-width: 0; }
+
+.deal-dest {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 3px;
+}
+
+.deal-hotel {
+  font-size: 12px;
+  color: var(--text2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.deal-meta {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 2px;
+}
+
+.deal-price {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.deal-price-main {
+  font-family: 'Space Mono', monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.deal-price-per {
+  font-size: 10px;
+  color: var(--text2);
+  margin-top: 2px;
+}
+
+.deal-price-total {
+  font-size: 10px;
+  color: var(--text3);
+}
+
+/* Progress bar */
+.deal-bar {
+  height: 3px;
+  background: var(--bg3);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.deal-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent3));
+  border-radius: 2px;
+}
+
+.deal-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.deal-tags {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-size: 10px;
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: var(--bg3);
+  color: var(--text2);
+}
+
+.tag.green { background: rgba(34,197,94,.15); color: var(--green); }
+.tag.blue { background: rgba(0,212,170,.1); color: var(--accent); }
+.tag.orange { background: rgba(245,158,11,.15); color: var(--yellow); }
+
+.deal-btn {
+  padding: 8px 14px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all .15s;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.deal-btn:active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+
+/* SCHEDULE */
+.schedule-section {
+  padding: 0 20px 20px;
+}
+
+.times-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.time-chip {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 4px;
+  text-align: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all .15s;
+}
+.time-chip.active {
+  background: rgba(0,212,170,.1);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.next-scan {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 10px;
+  font-family: 'Space Mono', monospace;
+}
+
+/* BOTTOM NAV */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding-bottom: calc(var(--safeb) + 8px);
+  background: rgba(10,10,15,.95);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-around;
+  padding-top: 10px;
+  z-index: 100;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 20px;
+  cursor: pointer;
+  color: var(--text3);
+  transition: color .15s;
+  font-size: 10px;
+}
+.nav-item.active { color: var(--accent); }
+.nav-icon { font-size: 20px; }
+
+/* MAIN CONTENT padding for bottom nav */
+.main-content { padding-bottom: 90px; }
+
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--accent);
+  color: var(--bg);
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0;
+  transition: all .3s;
+  z-index: 999;
+  white-space: nowrap;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* CHANGE BADGES */
+.chdn { font-size: 9px; padding: 2px 5px; border-radius: 5px; background: rgba(34,197,94,.2); color: var(--green); margin-left: 4px; }
+.chup { font-size: 9px; padding: 2px 5px; border-radius: 5px; background: rgba(239,68,68,.2); color: var(--red); margin-left: 4px; }
+.kbadge { font-size: 9px; padding: 2px 5px; border-radius: 5px; background: rgba(0,212,170,.15); color: var(--accent); margin-left: 4px; }
+
+/* EMPTY */
+.empty { text-align: center; padding: 40px 20px; color: var(--text3); }
+.empty-icon { font-size: 48px; margin-bottom: 12px; }
+
+/* CLAUDE LINK */
+.claude-section {
+  margin: 20px;
+  background: linear-gradient(135deg, rgba(0,212,170,.08), rgba(124,58,237,.08));
+  border: 1px solid rgba(0,212,170,.2);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+}
+
+.claude-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.claude-desc {
+  font-size: 12px;
+  color: var(--text2);
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.claude-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: var(--accent);
+  color: var(--bg);
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  transition: opacity .2s;
+}
+.claude-btn:active { opacity: .8; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">
+    <div class="logo-icon">✈️</div>
+    <div>
+      <div class="logo-text">LM HLÍDAČ</div>
+      <div class="logo-sub">2+2 · HB/AI · max 14 000 Kč</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="live-badge">
+      <div class="live-dot"></div>
+      <span id="live-time">--:--</span>
+    </div>
+    <button class="notif-btn" id="notif-btn" onclick="toggleNotif()" title="Notifikace">🔔</button>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-val" id="stat-count">54</div>
+    <div class="stat-label">Nabídek</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-val" id="stat-min">3 709</div>
+    <div class="stat-label">Min. Kč/os.</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-val">7/13</div>
+    <div class="stat-label">Zdrojů</div>
+  </div>
+</div>
+
+<div class="main-content">
+
+  <!-- SCAN -->
+  <div class="scan-section">
+    <button class="scan-btn" id="scan-btn" onclick="startScan()">
+      <span id="scan-icon">🔍</span>
+      <span id="scan-text">SPUSTIT SKEN</span>
+    </button>
+    <div class="last-scan" id="last-scan">Poslední sken: 4.6.2026 · 08:42</div>
+  </div>
+
+  <!-- SOURCES -->
+  <div class="sources-section">
+    <div class="section-title">Zdroje</div>
+    <div class="sources-grid" id="sources-grid"></div>
+  </div>
+
+  <!-- SCHEDULE -->
+  <div class="schedule-section">
+    <div class="section-title">Automatický sken</div>
+    <div class="times-grid" id="times-grid"></div>
+    <div class="next-scan" id="next-scan">Příští sken: --:--</div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filters-section" id="filters"></div>
+
+  <!-- DEALS -->
+  <div class="deals-section" id="deals-list"></div>
+
+  <!-- CLAUDE LINK -->
+  <div class="claude-section">
+    <div class="claude-title">🤖 Chceš poradit?</div>
+    <div class="claude-desc">Otevři Claude AI — já projdu všechny cestovky a pomůžu ti vybrat nejlepší zájezd pro vaši rodinu.</div>
+    <a class="claude-btn" href="https://claude.ai" target="_blank">
+      Otevřít Claude AI →
+    </a>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <div class="nav-item active" onclick="showTab('deals')">
+    <div class="nav-icon">🏷️</div>
+    <span>Nabídky</span>
+  </div>
+  <div class="nav-item" onclick="showTab('scan')">
+    <div class="nav-icon">🔍</div>
+    <span>Sken</span>
+  </div>
+  <div class="nav-item" onclick="showTab('settings')">
+    <div class="nav-icon">⚙️</div>
+    <span>Nastavení</span>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const TIMES = ['07:00','10:30','13:00','16:30','20:00'];
+const BUDGET = 14000;
+
+const FLAGS = {
+  'bulharsko':'🇧🇬','řecko':'🇬🇷','turecko':'🇹🇷','egypt':'🇪🇬','španělsko':'🇪🇸',
+  'albánie':'🇦🇱','černá hora':'🇲🇪','chorvatsko':'🇭🇷','kypr':'🇨🇾','malta':'🇲🇹',
+  'itálie':'🇮🇹','tunisko':'🇹🇳','kapverd':'🇨🇻','parga':'🇬🇷','rhodos':'🇬🇷',
+  'kos':'🇬🇷','korfu':'🇬🇷','kréta':'🇬🇷','zakynthos':'🇬🇷','kefalonie':'🇬🇷',
+  'samos':'🇬🇷','varna':'🇧🇬','burgas':'🇧🇬','bodrum':'🇹🇷','alanya':'🇹🇷',
+  'hurghada':'🇪🇬','mallorca':'🇪🇸','djerba':'🇹🇳','primorsko':'🇧🇬'
+};
+
+function gf(s) {
+  const n = (s||'').toLowerCase();
+  for (const [k,v] of Object.entries(FLAGS)) if (n.includes(k)) return v;
+  return '🏖️';
+}
+
+// DATA — poslední sken 4.6.2026
+const DEALS_DATA = [
+  {dest:'Albánie – Vlora',hotel:'Hotel Oricon Coast',price:3709,nights:3,board:'AI',dep:'vlastní',date:'08.06.',score:5.3,src:'Čedok',url:'https://www.cedok.cz/last-minute/'},
+  {dest:'Bulharsko – Slunečné Pobřeží',hotel:'Ivana Palace ★★★★',price:3828,nights:7,board:'Snídaně',dep:'OSR',date:'02.06.',score:4.1,src:'Cestujlevne',url:'https://www.cestujlevne.com/zajezdy'},
+  {dest:'Chorvatsko',hotel:'polopenze — seznam',price:3772,nights:7,board:'HB',src:'Zájezdy.cz',destOnly:true,url:'https://last-minute.zajezdy.cz/chorvatsko-polopenze/'},
+  {dest:'Bulharsko – Slunečné Pobřeží',hotel:'Smolian ★★★',price:4089,nights:7,board:'Snídaně',dep:'OSR',date:'09.06.',score:4.3,src:'Cestujlevne',url:'https://www.cestujlevne.com/zajezdy'},
+  {dest:'Bulharsko',hotel:'polopenze — seznam',price:4590,nights:7,board:'HB',src:'Zájezdy.cz',chDn:'↓',destOnly:true,url:'https://last-minute.zajezdy.cz/bulharsko-polopenze/'},
+  {dest:'Bulharsko – Burgas',hotel:'konkrétní hotel',price:4790,nights:7,board:'?',dep:'BRN',date:'07.06.',src:'Exim',chDn:'↓',url:'https://www.eximtours.cz/last-minute/'},
+  {dest:'Turecko – Alanya',hotel:'Eftalia Downtown ★★★',price:5088,nights:7,board:'Snídaně',dep:'PRG',date:'02.06.',score:4.5,src:'Cestujlevne',url:'https://www.cestujlevne.com/zajezdy'},
+  {dest:'Bulharsko – Burgas',hotel:'konkrétní hotel',price:5690,nights:7,board:'?',dep:'PRG',date:'07.06.',src:'Exim',url:'https://www.eximtours.cz/last-minute/'},
+  {dest:'Bulharsko – Zlaté Písky',hotel:'Ljuljak',price:5390,nights:7,board:'HB',dep:'BRN',date:'05.06.',src:'Cestujlevne',url:'https://www.cestujlevne.com/zajezdy'},
+  {dest:'Řecko – Parga',hotel:'konkrétní hotel',price:5990,nights:7,board:'?',dep:'PRG',date:'06.06.',src:'Exim',chDn:'nové!',url:'https://www.eximtours.cz/last-minute/'},
+  {dest:'Bulharsko – Varna',hotel:'Blue Style — výběr',price:5990,nights:7,board:'?',dep:'PRG/BRQ/OSR',date:'08.06.',src:'Blue Style',chDn:'↓',destOnly:true,url:'https://www.blue-style.cz/last-minute/'},
+  {dest:'Turecko – Bodrum',hotel:'Blue Style — výběr',price:5990,nights:7,board:'?',dep:'PRG/BRQ/OSR',date:'05.06.',src:'Blue Style',chDn:'↓',destOnly:true,url:'https://www.blue-style.cz/last-minute/'},
+  {dest:'Bulharsko',hotel:'HB — seznam',price:6150,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',chDn:'↓',destOnly:true,url:'https://www.fischer.cz/bulharsko?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
+  {dest:'Španělsko',hotel:'HB — seznam',price:6890,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',destOnly:true,url:'https://www.fischer.cz/spanelsko?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
+  {dest:'Turecko',hotel:'HB — seznam',price:6693,nights:7,board:'HB',src:'Zájezdy.cz',destOnly:true,url:'https://last-minute.zajezdy.cz/turecko-polopenze/'},
+  {dest:'Řecko – Rhodos',hotel:'konkrétní hotel',price:6490,nights:7,board:'?',dep:'PRG',date:'06.06.',src:'Exim',url:'https://www.eximtours.cz/last-minute/'},
+  {dest:'Řecko – Rhodos',hotel:'konkrétní hotel',price:6990,nights:7,board:'?',dep:'BRN',date:'07.06.',src:'Exim',url:'https://www.eximtours.cz/last-minute/'},
+  {dest:'Řecko',hotel:'HB — seznam',price:7790,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',destOnly:true,url:'https://www.fischer.cz/recko?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
+  {dest:'Bulharsko – Zlaté Písky',hotel:'Berlin Golden Beach',price:7990,nights:7,board:'AI',dep:'PRG/BRQ/OSR',date:'07.06.',score:8.5,reviews:772,src:'Alexandria',url:'https://www.alexandria.cz/last-minute/'},
+  {dest:'Španělsko – Mallorca',hotel:'konkrétní hotel',price:7790,nights:7,board:'?',dep:'BRN',date:'06.06.',src:'Exim',url:'https://www.eximtours.cz/last-minute/'},
+  {dest:'Řecko',hotel:'HB — seznam',price:7290,nights:7,board:'HB',src:'Zájezdy.cz',destOnly:true,url:'https://last-minute.zajezdy.cz/recko-polopenze/'},
+  {dest:'Řecko – Kréta',hotel:'Blue Style — výběr',price:8190,nights:7,board:'?',dep:'PRG/BRQ/OSR',date:'07.06.',src:'Blue Style',destOnly:true,url:'https://www.blue-style.cz/last-minute/'},
+  {dest:'Řecko – Kos/Tigaki',hotel:'Tigaki Beach ★★★★★',price:8990,nights:7,board:'AI',dep:'PRG/BRQ/OSR',date:'05.06.',score:9.3,reviews:187,src:'Alexandria',chDn:'↓',url:'https://www.alexandria.cz/last-minute/'},
+  {dest:'Řecko – Kos',hotel:'Blue Style — výběr',price:8590,nights:7,board:'?',dep:'PRG/BRQ/OSR',date:'07.06.',src:'Blue Style',destOnly:true,url:'https://www.blue-style.cz/last-minute/'},
+  {dest:'Albánie – Tirana',hotel:'Hotel Royal G Deluxe',price:9490,nights:8,board:'AI',dep:'PRD',date:'04.06.',score:5.3,src:'Čedok',url:'https://www.cedok.cz/last-minute/'},
+  {dest:'Egypt',hotel:'HB — seznam',price:9590,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',chDn:'↓',destOnly:true,url:'https://www.fischer.cz/egypt?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
+  {dest:'Bulharsko – Primorsko',hotel:'Belvedere Alexandria Club',price:9990,nights:7,board:'AI',dep:'PRG/BRQ/OSR',date:'07.06.',score:9.4,reviews:1776,src:'Alexandria',chDn:'↓',url:'https://www.alexandria.cz/last-minute/'},
+  {dest:'Řecko – Zakynthos',hotel:'Strofades Beach',price:9990,nights:7,board:'AI',dep:'PRG/BRQ/OSR',date:'05.06.',score:8.5,reviews:1004,kids:'2 děti ZDARMA',src:'Alexandria',url:'https://www.alexandria.cz/last-minute/'},
+  {dest:'Turecko',hotel:'HB — seznam',price:9105,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',destOnly:true,url:'https://www.fischer.cz/turecko?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
+  {dest:'Albánie – Durrës',hotel:'Royal G Max Alexandria Club',price:9990,nights:7,board:'AI',dep:'PRG',date:'05.06.',score:8.9,reviews:278,src:'Alexandria',url:'https://www.alexandria.cz/last-minute/'},
+  {dest:'Černá Hora – Čanj',hotel:'Pearl Beach Resort',price:10990,nights:7,board:'AI',dep:'PRG/BRN',date:'07.06.',score:8.6,reviews:668,src:'Alexandria',url:'https://www.alexandria.cz/last-minute/'},
+  {dest:'Kypr',hotel:'HB — seznam',price:11555,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',destOnly:true,url:'https://www.fischer.cz/kypr?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
+  {dest:'Bulharsko – Slunečné Pobřeží',hotel:'Helena Park Alexandria Club',price:11990,nights:7,board:'Ultra AI',dep:'PRG/BRQ/OSR',date:'13.06.',score:9.4,reviews:517,src:'Alexandria',url:'https://www.alexandria.cz/last-minute/'},
+  {dest:'Malta',hotel:'HB — seznam',price:12740,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',destOnly:true,url:'https://www.fischer.cz/malta?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
+  {dest:'Černá Hora',hotel:'HB — seznam',price:13840,nights:7,board:'HB',dep:'PRG/BRQ/OSR',src:'Fischer',destOnly:true,url:'https://www.fischer.cz/cerna-hora?BO=HB&ac1=2&dd=2026-06-04&ka1=6|3&kc1=2&nn=7|8|9|10&pf=1000&pt=56000&rd=2026-07-15&tt=1'},
+];
+
+const SOURCES = [
+  {name:'Fischer',ok:true,count:11},{name:'Exim',ok:true,count:13},
+  {name:'Blue Style',ok:true,count:8},{name:'Čedok',ok:true,count:2},
+  {name:'Alexandria',ok:true,count:9},{name:'Zájezdy',ok:true,count:7},
+  {name:'Cestujlevne',ok:true,count:4},{name:'Invia',ok:false,count:0},
+];
+
+let activeFilter = 'all';
+let scanTimer = null;
+let notifOn = false;
+let activeTab = 'deals';
+
+// Clock
+function updateClock() {
+  document.getElementById('live-time').textContent =
+    new Date().toLocaleTimeString('cs-CZ', {hour:'2-digit', minute:'2-digit'});
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// Sources
+function renderSources() {
+  document.getElementById('sources-grid').innerHTML = SOURCES.map(s => `
+    <div class="source-chip ${s.ok ? 'ok' : ''}">
+      ${s.ok ? `<span class="source-count">${s.count}</span>` : '<span class="source-count" style="color:var(--text3)">—</span>'}
+      <span>${s.name}</span>
+    </div>`).join('');
+}
+
+// Filters
+function renderFilters() {
+  const filters = [
+    {id:'all', label:'Vše'},
+    {id:'bg', label:'🇧🇬 Bulharsko'},
+    {id:'gr', label:'🇬🇷 Řecko'},
+    {id:'tr', label:'🇹🇷 Turecko'},
+    {id:'es', label:'🇪🇸 Španělsko'},
+    {id:'eg', label:'🇪🇬 Egypt'},
+    {id:'al', label:'🇦🇱 Albánie'},
+    {id:'hr', label:'🇭🇷 Chorvatsko'},
+  ];
+  document.getElementById('filters').innerHTML = filters.map(f =>
+    `<button class="filter-pill ${activeFilter === f.id ? 'active' : ''}" onclick="setFilter('${f.id}')">${f.label}</button>`
+  ).join('');
+}
+
+const FILTER_MAP = {
+  'bg':'bulharsko','gr':'řecko','tr':'turecko','es':'španělsko',
+  'eg':'egypt','al':'albánie','hr':'chorvatsko'
+};
+
+function setFilter(f) {
+  activeFilter = f;
+  renderFilters();
+  renderDeals();
+}
+
+// Schedule
+function renderSchedule() {
+  document.getElementById('times-grid').innerHTML = TIMES.map(t => {
+    const stored = localStorage.getItem(`time_${t}`) !== 'off';
+    return `<div class="time-chip ${stored ? 'active' : ''}" onclick="toggleTime(this, '${t}')">${t}</div>`;
+  }).join('');
+  updateNextScan();
+}
+
+function toggleTime(el, t) {
+  el.classList.toggle('active');
+  localStorage.setItem(`time_${t}`, el.classList.contains('active') ? 'on' : 'off');
+  updateNextScan();
+}
+
+function updateNextScan() {
+  const now = new Date();
+  const active = TIMES.filter(t => localStorage.getItem(`time_${t}`) !== 'off').sort();
+  let next = null;
+  for (const t of active) {
+    const [h,m] = t.split(':').map(Number);
+    const c = new Date(now); c.setHours(h,m,0,0);
+    if (c > now) { next = c; break; }
+  }
+  if (!next && active.length) {
+    const [h,m] = active[0].split(':').map(Number);
+    next = new Date(now); next.setDate(next.getDate()+1); next.setHours(h,m,0,0);
+  }
+  if (next) {
+    if (scanTimer) clearTimeout(scanTimer);
+    scanTimer = setTimeout(openClaude, next - now);
+    document.getElementById('next-scan').textContent = 'Příští: ' + next.toLocaleTimeString('cs-CZ',{hour:'2-digit',minute:'2-digit'});
+  }
+}
+
+// Deals
+function renderDeals() {
+  let data = DEALS_DATA.filter(d => d.price <= BUDGET);
+  if (activeFilter !== 'all') {
+    const keyword = FILTER_MAP[activeFilter];
+    data = data.filter(d => d.dest.toLowerCase().includes(keyword));
+  }
+  data.sort((a,b) => a.price - b.price);
+
+  document.getElementById('stat-count').textContent = data.length;
+  const min = Math.min(...data.map(d=>d.price));
+  document.getElementById('stat-min').textContent = min.toLocaleString('cs-CZ');
+
+  const el = document.getElementById('deals-list');
+  if (!data.length) {
+    el.innerHTML = '<div class="empty"><div class="empty-icon">🏖️</div><p>Žádné nabídky pro tento filtr.</p></div>';
+    return;
+  }
+
+  el.innerHTML = data.map((d, i) => {
+    const pct = Math.min(100, Math.round(d.price / BUDGET * 100));
+    const tot = (d.price * 4).toLocaleString('cs-CZ');
+    const hot = d.price < 6000;
+    const flag = gf(d.dest);
+    const delay = Math.min(i * 30, 300);
+    return `<div class="deal-card ${hot ? 'hot' : ''}" style="animation-delay:${delay}ms">
+      <div class="deal-top">
+        <div class="deal-flag">${flag}</div>
+        <div class="deal-info">
+          <div class="deal-dest">
+            ${d.dest}
+            ${d.chDn ? `<span class="chdn">${d.chDn}</span>` : ''}
+            ${d.chUp ? `<span class="chup">${d.chUp}</span>` : ''}
+            ${d.kids ? `<span class="kbadge">👶 ${d.kids}</span>` : ''}
+          </div>
+          <div class="deal-hotel">${d.hotel}</div>
+          <div class="deal-meta">
+            ${d.nights ? d.nights+' nocí · ' : ''}${d.board||'?'}${d.dep ? ' · '+d.dep : ''}${d.date ? ' · '+d.date : ''}
+          </div>
+        </div>
+        <div class="deal-price">
+          <div class="deal-price-main">${d.price.toLocaleString('cs-CZ')}</div>
+          <div class="deal-price-per">Kč / os.</div>
+          <div class="deal-price-total">~${tot} Kč</div>
+        </div>
+      </div>
+      <div class="deal-bar">
+        <div class="deal-bar-fill" style="width:${pct}%"></div>
+      </div>
+      <div class="deal-bottom">
+        <div class="deal-tags">
+          ${d.score ? `<span class="tag ${d.score>8?'green':d.score>6?'blue':''}">⭐ ${d.score > 6 ? d.score.toFixed(1) : d.score.toFixed(1)+'/6'}</span>` : ''}
+          ${d.reviews ? `<span class="tag">${d.reviews} rec.</span>` : ''}
+          <span class="tag">${d.src}</span>
+          ${hot ? '<span class="tag green">🔥 Výhodné</span>' : ''}
+        </div>
+        <a class="deal-btn" href="${d.url}" target="_blank" rel="noopener">
+          ${d.destOnly ? 'Seznam' : 'Rezervovat'} →
+        </a>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// Scan
+function startScan() {
+  const btn = document.getElementById('scan-btn');
+  const icon = document.getElementById('scan-icon');
+  const text = document.getElementById('scan-text');
+
+  btn.classList.add('scanning');
+  icon.innerHTML = '<div class="spinner"></div>';
+  text.textContent = 'OTEVÍRÁM CLAUDE...';
+
+  setTimeout(() => {
+    openClaude();
+    setTimeout(() => {
+      btn.classList.remove('scanning');
+      icon.textContent = '🔍';
+      text.textContent = 'SPUSTIT SKEN';
+      document.getElementById('last-scan').textContent =
+        'Poslední sken: ' + new Date().toLocaleDateString('cs-CZ') + ' · ' +
+        new Date().toLocaleTimeString('cs-CZ',{hour:'2-digit',minute:'2-digit'});
+      showToast('Sken spuštěn v Claude AI!');
+    }, 1500);
+  }, 500);
+}
+
+function openClaude() {
+  window.open('https://claude.ai', '_blank');
+}
+
+// Notifikace
+function toggleNotif() {
+  if (!notifOn && 'Notification' in window) {
+    Notification.requestPermission().then(p => {
+      if (p === 'granted') {
+        notifOn = true;
+        document.getElementById('notif-btn').classList.add('active');
+        document.getElementById('notif-btn').textContent = '🔕';
+        showToast('Notifikace zapnuty!');
+        new Notification('Last Minute Hlídač', { body: 'Budu tě upozorňovat na nové nabídky!', icon: '/icon-192.png' });
+      }
+    });
+  } else {
+    notifOn = false;
+    document.getElementById('notif-btn').classList.remove('active');
+    document.getElementById('notif-btn').textContent = '🔔';
+    showToast('Notifikace vypnuty');
+  }
+}
+
+// Toast
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// Tabs
+function showTab(tab) {
+  activeTab = tab;
+  document.querySelectorAll('.nav-item').forEach((el, i) => {
+    el.classList.toggle('active', ['deals','scan','settings'][i] === tab);
+  });
+  if (tab === 'scan') {
+    document.querySelector('.scan-section').scrollIntoView({behavior:'smooth'});
+  } else if (tab === 'settings') {
+    document.querySelector('.schedule-section').scrollIntoView({behavior:'smooth'});
+  }
+}
+
+// PWA Install
+let installPrompt = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  installPrompt = e;
+  showToast('💡 Přidej si appku na plochu!');
+});
+
+// Service Worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(() => {});
+}
+
+// Init
+renderSources();
+renderFilters();
+renderSchedule();
+renderDeals();
+</script>
+</body>
+</html>
